@@ -2,10 +2,24 @@
   "name": "@repo/global-util",
   "version": "0.0.0",
   "private": true,
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsc && ts-node-dev --respawn --transpile-only src/index.ts"
+  },
   "devDependencies": {
-    "typescript": "^5.8.2"
+    "@config/typescript": "^0.0.0",
+    "typescript": "^5.8.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
-    "eslint-config-turbo": "^2.5.3"
+    "eslint-config-turbo": "^2.5.3",
+    "@nestjs/common": "^11.0.1"
   }
 }

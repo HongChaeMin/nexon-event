@@ -1,7 +1,11 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@config/eslint",
   "version": "0.0.0",
   "private": true,
+  "exports": {
+    "./base": "./eslint.config.mjs",
+    "./prettier": "./prettier-base.js"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",

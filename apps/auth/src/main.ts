@@ -1,9 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ValidationPipe } from '@nestjs/common';
-import { LoggingInterceptor } from '@repo/global-util/logging';
 import { AppModule } from './app.module';
-import { GlobalValidationPipe } from './errors/pipes/global-validation.pipe';
+import { GlobalValidationPipe, TcpLoggingInterceptor } from '@repo/global-util';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -15,7 +14,7 @@ async function bootstrap() {
   );
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalPipes(new GlobalValidationPipe());
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new TcpLoggingInterceptor());
   await app.listen();
 }
 bootstrap();

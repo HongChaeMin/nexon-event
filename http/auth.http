@@ -1,0 +1,16 @@
+### find all
+GET {{url}}/auths
+
+### find by id
+GET {{url}}/auths/:id
+
+### create
+POST {{url}}/auths
+Content-Type: application/json
+
+{
+  "username": "string",
+  "password": "string",
+  "email": "string",
+  "role": "string"
+}

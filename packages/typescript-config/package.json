@@ -1,11 +1,8 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@config/typescript",
   "version": "0.0.0",
   "private": true,
   "files": [
     "nest.json"
-  ],
-  "publishConfig": {
-    "access": "public"
-  }
+  ]
 }
