@@ -2,36 +2,51 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ObjectId } from 'typeorm';
 import { MemberService } from './member.service';
-import { CreateMemberRequest } from './dto';
+import {
+  CreateMemberRequest,
+  LoginMemberRequest,
+  UpdateMemberRequest,
+  MemberPatterns,
+} from '@repo-types/auth';
 
 @Controller()
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
-  @MessagePattern({ cmd: 'create' })
-  create(@Payload() request: CreateMemberRequest) {
-    return this.memberService.create(request);
+  @MessagePattern(MemberPatterns.CREATE)
+  async create(@Payload() request: CreateMemberRequest) {
+    return await this.memberService.create(request);
   }
 
-  @MessagePattern({ cmd: 'findAll' })
-  findAll() {
-    return this.memberService.findAll();
+  @MessagePattern(MemberPatterns.LOGIN)
+  async login(@Payload() request: LoginMemberRequest) {
+    return await this.memberService.login(request);
   }
 
-  @MessagePattern({ cmd: 'findOne' })
-  findOne(@Payload() id: ObjectId) {
-    return this.memberService.findOne(id);
+  @MessagePattern(MemberPatterns.VALIDATE_TOKEN)
+  async validateToken(@Payload() token: string) {
+    return await this.memberService.validateToken(token);
   }
 
-  @MessagePattern({ cmd: 'update' })
-  update(
-    @Payload() { id, request }: { id: ObjectId; request: CreateMemberRequest },
+  @MessagePattern(MemberPatterns.FIND_ALL)
+  async findAll() {
+    return await this.memberService.findAll();
+  }
+
+  @MessagePattern(MemberPatterns.FIND_ONE)
+  async findOne(@Payload() id: ObjectId) {
+    return await this.memberService.findOne(id);
+  }
+
+  @MessagePattern(MemberPatterns.UPDATE)
+  async update(
+    @Payload() { id, request }: { id: ObjectId; request: UpdateMemberRequest },
   ) {
-    return this.memberService.update(id, request);
+    return await this.memberService.update(id, request);
   }
 
-  @MessagePattern({ cmd: 'delete' })
-  delete(@Payload() id: ObjectId) {
-    return this.memberService.delete(id);
+  @MessagePattern(MemberPatterns.DELETE)
+  async delete(@Payload() id: ObjectId) {
+    return await this.memberService.delete(id);
   }
 }

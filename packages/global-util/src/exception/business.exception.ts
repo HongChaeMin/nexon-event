@@ -8,6 +8,7 @@ export class BusinessException extends HttpException {
     httpStatus?: HttpStatus,
   ) {
     super({ errors }, httpStatus ? httpStatus : HttpStatus.BAD_REQUEST);
+    super.name = 'BusinessException';
   }
 }
 

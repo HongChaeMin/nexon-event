@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfigProvider } from './database/provider/database-config.provider';
+import { TypeOrmConfigProvider } from '@repo/global-util';
 import { MemberModule } from './modules/member/member.module';
 
 @Module({

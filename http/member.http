@@ -1,0 +1,39 @@
+### find by token
+GET {{url}}/members
+Authorization: {{token}}
+
+### create
+POST {{url}}/members
+Content-Type: application/json
+
+{
+  "name": "user1",
+  "password": "password1!",
+  "email": "email@email.com",
+  "role": "USER"
+}
+
+### update
+PATCH {{url}}/members/1
+Content-Type: application/json
+
+{
+  "name": "user1",
+  "email": "test@email.com"
+}
+
+### delete
+DELETE {{url}}/members/1
+
+### login
+POST {{url}}/members/login
+Content-Type: application/json
+
+{
+  "email": "email@email.com",
+  "password": "password1!"
+}
+
+> {%
+  client.global.set('token', response.body.token)
+%}

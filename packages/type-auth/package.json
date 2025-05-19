@@ -1,5 +1,5 @@
 {
-  "name": "@repo/global-util",
+  "name": "@repo-types/auth",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "eslint-config-turbo": "^2.5.3",
-    "@nestjs/common": "^11.0.1"
+    "class-validator": "^0.14.2"
   }
 }

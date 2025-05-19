@@ -4,7 +4,6 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -12,14 +11,13 @@ import { BusinessException } from './business.exception';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(GlobalExceptionFilter.name);
   private exception: HttpException;
-  private isAuthException: boolean;
+  private isBusinessException: boolean;
 
   catch(exception: HttpException, host: ArgumentsHost) {
     exception = this.checkNotFoundException(exception);
 
-    this.isAuthException = exception instanceof BusinessException;
+    this.isBusinessException = exception instanceof BusinessException;
     this.exception = exception;
 
     const ctx = host.switchToHttp();
@@ -30,13 +28,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   }
 
   private getStatus(): HttpStatus {
-    return this.isAuthException
+    return this.isBusinessException
       ? this.exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
   private getBody(request: Request): string | object {
-    const body = this.isAuthException
+    const body = this.isBusinessException
       ? this.exception.getResponse()
       : {
         errors: [

@@ -17,12 +17,12 @@ export class TcpLoggingInterceptor implements NestInterceptor {
     const now = Date.now();
     return next.handle().pipe(
       tap(() =>
-        logger.request('SERVICE', 'AUTH', Date.now() - now),
+        logger.request('AUTH', context.getArgs()[0], Date.now() - now),
       ),
       tap(() => logger.response(JSON.stringify(data)?.substring(0, 100))),
       pipe(
         catchError((error) => {
-          logger.errors('SERVICE', 'AUTH', Date.now() - now);
+          logger.errors(context.getClass().name, context.getArgs()[0], Date.now() - now);
           logger.trace(error.stack);
           throw error;
         }),
