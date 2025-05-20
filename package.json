@@ -3,6 +3,9 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:auth": "turbo run build --filter=auth",
+    "build:event": "turbo run build --filter=event",
+    "build:gateway": "turbo run build --filter=gateway",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

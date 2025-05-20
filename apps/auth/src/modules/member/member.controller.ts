@@ -1,12 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ObjectId } from 'typeorm';
 import { MemberService } from './member.service';
 import {
   CreateMemberRequest,
   LoginMemberRequest,
   UpdateMemberRequest,
-  MemberPatterns,
+  MemberPatterns, RoleType,
 } from '@repo-types/auth';
 
 @Controller()
@@ -24,29 +23,34 @@ export class MemberController {
   }
 
   @MessagePattern(MemberPatterns.VALIDATE_TOKEN)
-  async validateToken(@Payload() token: string) {
-    return await this.memberService.validateToken(token);
+  async validateToken(@Payload() request: { token: string }) {
+    return await this.memberService.validateToken(request.token);
   }
 
-  @MessagePattern(MemberPatterns.FIND_ALL)
+  @MessagePattern(MemberPatterns.VALIDATE_ROLE)
+  async validateRole(@Payload() request: { id: string; roles: RoleType[] }) {
+    return await this.memberService.validateRole(request);
+  }
+
+  @MessagePattern(MemberPatterns.FIND)
   async findAll() {
     return await this.memberService.findAll();
   }
 
   @MessagePattern(MemberPatterns.FIND_ONE)
-  async findOne(@Payload() id: ObjectId) {
+  async findOne(@Payload() id: string) {
     return await this.memberService.findOne(id);
   }
 
   @MessagePattern(MemberPatterns.UPDATE)
   async update(
-    @Payload() { id, request }: { id: ObjectId; request: UpdateMemberRequest },
+    @Payload() { id, request }: { id: string; request: UpdateMemberRequest },
   ) {
     return await this.memberService.update(id, request);
   }
 
   @MessagePattern(MemberPatterns.DELETE)
-  async delete(@Payload() id: ObjectId) {
+  async delete(@Payload() id: string) {
     return await this.memberService.delete(id);
   }
 }

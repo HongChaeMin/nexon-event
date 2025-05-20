@@ -6,4 +6,10 @@ export class LoginMemberRequest {
 
   @IsNotEmpty()
   password: string;
+
+  getOptions() {
+    return {
+      where: { email: this.email },
+    }
+  }
 }

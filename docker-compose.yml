@@ -1,0 +1,43 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        PROJECT: gateway
+    container_name: gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth
+      - event
+    networks:
+      - net
+
+  auth:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        PROJECT: auth
+    container_name: auth
+    ports:
+      - "3001:3001"
+    networks:
+      - net
+
+  event:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        PROJECT: event
+    container_name: event
+    ports:
+      - "3002:3002"
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

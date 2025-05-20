@@ -22,7 +22,7 @@ export class TcpLoggingInterceptor implements NestInterceptor {
       tap(() => logger.response(JSON.stringify(data)?.substring(0, 100))),
       pipe(
         catchError((error) => {
-          logger.errors(context.getClass().name, context.getArgs()[0], Date.now() - now);
+          logger.errors(context.getClass().name, error.errors, Date.now() - now);
           logger.trace(error.stack);
           throw error;
         }),

@@ -1,12 +1,12 @@
 import {
   Column,
-  ObjectId,
   ObjectIdColumn,
 } from 'typeorm';
+import { ObjectId } from 'mongodb';
 
 export class BaseEntity {
   @ObjectIdColumn()
-  id: ObjectId;
+  _id: ObjectId;
 
   @Column({ type: 'timestamp' })
   createdAt: Date = new Date();

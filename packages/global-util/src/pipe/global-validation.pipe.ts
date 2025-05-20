@@ -1,12 +1,12 @@
 import { ValidationPipe } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { BusinessException, ValidateExceptionType } from '../exception';
+import { BusinessHttpException, ValidateExceptionType } from '../exception';
 
 export class GlobalValidationPipe extends ValidationPipe {
   public createExceptionFactory() {
     return (errors: ValidationError[]) => {
       const extractionErrors = this.extractionValidationErrors(errors);
-      return new BusinessException(extractionErrors);
+      return new BusinessHttpException(extractionErrors);
     };
   }
 

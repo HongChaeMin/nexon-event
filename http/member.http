@@ -1,15 +1,18 @@
 ### find by token
 GET {{url}}/members
-Authorization: {{token}}
+Authorization: Bearer {{token}}
+
+### find by id
+GET {{url}}/members/682c1e1daae91d7679d6b16d
 
 ### create
 POST {{url}}/members
 Content-Type: application/json
 
 {
-  "name": "user1",
+  "name": "user",
   "password": "password1!",
-  "email": "email@email.com",
+  "email": "chaemin@email.com",
   "role": "USER"
 }
 
@@ -30,7 +33,7 @@ POST {{url}}/members/login
 Content-Type: application/json
 
 {
-  "email": "email@email.com",
+  "email": "chaemin@email.com",
   "password": "password1!"
 }
 

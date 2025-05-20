@@ -1,4 +1,0 @@
-{
-  "extends": "@config/typescript/nest",
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
-}

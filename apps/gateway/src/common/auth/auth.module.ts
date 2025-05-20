@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { JwtGuard } from './guards/jwt.guard';
+import { RoleGuard } from './guards/role.guard';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AuthController } from './auth.controller';
-import { MemberService } from './services/member.service';
 
 @Module({
   imports: [
@@ -15,9 +15,10 @@ import { MemberService } from './services/member.service';
         },
       },
     ]),
-    AuthModule,
   ],
-  controllers: [AuthController],
-  providers: [MemberService],
+  providers: [
+    JwtGuard,
+    RoleGuard,
+  ],
 })
 export class AuthModule {}

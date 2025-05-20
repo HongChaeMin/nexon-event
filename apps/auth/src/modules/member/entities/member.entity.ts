@@ -34,4 +34,8 @@ export class Member extends BaseEntity {
   checkPassword(password: string) {
   return bcrypt.compareSync(password, this.password);
   }
+
+  hasRole(roles: RoleType[]) {
+    return roles.includes(this.role);
+  }
 }

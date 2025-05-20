@@ -7,17 +7,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { BusinessException } from './business.exception';
+import { BusinessHttpException } from './business-http.exception';
 
-@Catch()
-export class GlobalExceptionFilter implements ExceptionFilter {
+@Catch(HttpException)
+export class GlobalHttpExceptionFilter implements ExceptionFilter {
   private exception: HttpException;
   private isBusinessException: boolean;
 
   catch(exception: HttpException, host: ArgumentsHost) {
     exception = this.checkNotFoundException(exception);
 
-    this.isBusinessException = exception instanceof BusinessException;
+    this.isBusinessException = exception instanceof BusinessHttpException;
     this.exception = exception;
 
     const ctx = host.switchToHttp();
@@ -61,10 +61,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   private checkNotFoundException(exception: HttpException) {
     const isNotFoundException = exception instanceof NotFoundException;
     if (isNotFoundException) {
-      return new BusinessException(
+      return new BusinessHttpException(
         [
           {
-            code: 'auth.not-found.url',
+            code: 'global.not-found.url',
             message: '존재하지 않은 URL 호출입니다.',
             httpStatus: HttpStatus.NOT_FOUND,
           },

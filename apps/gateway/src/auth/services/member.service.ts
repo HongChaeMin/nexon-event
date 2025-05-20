@@ -17,18 +17,18 @@ export class MemberService {
   }
 
   findAll() {
-    return this.authClient.send(MemberPatterns.FIND_ALL, {});
+    return this.authClient.send(MemberPatterns.FIND, {});
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.authClient.send(MemberPatterns.FIND_ONE, id);
   }
 
-  update(id: number, request: UpdateMemberRequest) {
+  update(id: string, request: UpdateMemberRequest) {
     return this.authClient.send(MemberPatterns.UPDATE, { id, request });
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.authClient.send(MemberPatterns.DELETE, id);
   }
 }
