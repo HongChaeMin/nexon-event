@@ -16,8 +16,6 @@ export class RoleGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const roles = this.reflector.get<RoleType[]>('roles', context.getHandler());
-    console.log('roles', roles);
-    console.log('request.id', request.id);
     const result = await firstValueFrom(
       this.authClient.send(
         MemberPatterns.VALIDATE_ROLE,

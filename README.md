@@ -56,6 +56,8 @@
    docker compose up -d
    ```
     - 각 서비스는 Docker 컨테이너로 구동됩니다. (경로 문제로 미완입니다.)
+3. http 파일 실행
+  - http/member.http 파일을 통해 API 요청 테스트 가능
 
 ---
 
